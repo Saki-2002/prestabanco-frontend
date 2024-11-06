@@ -92,7 +92,7 @@ const MCSimulation = () => {
         justifyContent="center"
         component="form"
       >
-        <h3> Simular Crédito Bancario</h3>
+        <h3> Simular Crédito Bancario Chile</h3>
         <hr />
         
           <FormControl fullWidth>
