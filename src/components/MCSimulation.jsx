@@ -60,9 +60,9 @@ const MCSimulation = () => {
     e.preventDefault();
 
     const mcSimulation = {
-      p:parseInt(loanAmount),
-      annual_rate: parseFloat(annualInterestRate),
-      years:parseInt(loanTerm)
+      loanAmount:parseInt(loanAmount),
+      annualInterestRate: parseFloat(annualInterestRate),
+      loanTerm:parseInt(loanTerm)
     };
 
     MCSimulationService
@@ -122,6 +122,9 @@ const MCSimulation = () => {
               value={loanAmount}
               onChange={(e) => setLoanAmonut(e.target.value)}
             />
+            <Typography variant="caption" color="textSecondary">
+              En CLP.
+            </Typography>
           </FormControl>
           <br />
           <FormControl fullWidth>
@@ -140,7 +143,7 @@ const MCSimulation = () => {
             />
             {selectedMCType && (
             <Typography variant="caption" color="textSecondary">
-              Indique un valor entre {annualInterestRateLimits.min} y {annualInterestRateLimits.max}.
+              Indique un valor entre {annualInterestRateLimits.min}% y {annualInterestRateLimits.max}%.
             </Typography>
             )}
           </FormControl>
@@ -160,7 +163,7 @@ const MCSimulation = () => {
             />
             {selectedMCType && (
               <Typography variant="caption" color ="textSecondary">
-                Indique un valor entre 1 y {loanTermLimit}.
+                Indique un valor entre 1 y {loanTermLimit} Años.
               </Typography>
             )}
           </FormControl>
@@ -182,7 +185,7 @@ const MCSimulation = () => {
           <Card variant="outlined" style={{ padding: '16px' }}>
           <CardContent>
               <Typography variant="body1">
-                <strong>Cuota Mensual:</strong> {simulationResult}
+                <strong>Cuota Mensual:</strong> {simulationResult} <strong>CLP</strong>
               </Typography>
           </CardContent>
         </Card>

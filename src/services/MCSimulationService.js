@@ -1,7 +1,7 @@
 import httpClient from "../http-common";
 
 const simulate = data => {
-    return httpClient.post('api/v1/mcapplication/simulate', data);
+    return httpClient.post('/api/v1/simulate/', data);
 }
 
 const getAll = () => {
