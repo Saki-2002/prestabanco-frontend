@@ -41,7 +41,7 @@ export default function Sidemenu({ open, toggleDrawer }) {
           <ListItemText primary="Simular Crédito" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigate("/application/apply")}>
+        <ListItemButton onClick={() => navigate("/mcapplication")}>
           <ListItemIcon>
             <RequestQuoteIcon />
           </ListItemIcon>

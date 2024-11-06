@@ -7,6 +7,7 @@ import MCSimulation from './components/MCSimulation';
 import UserLogin from './components/UserLogin';
 import UserRegister from './components/UserRegister'
 import { AuthProvider } from './context/AuthContext';
+import MCApplication from './components/MCApplication';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/simulation" element={<MCSimulation />} />
             <Route path="/login" element={<UserLogin />} />
             <Route path='/register' element={<UserRegister />} />
+            <Route path='/mcapplication' element={<MCApplication/>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
