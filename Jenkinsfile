@@ -1,22 +1,40 @@
 pipeline {
     agent any
-    stages{
-        stage('Build NPM'){
-            steps{
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Saki-2002/prestabanco-frontend']])
-                bat "npm install"
-				bat "npm run build"
+    environment {
+        DB_URL = "jdbc:postgresql://localhost:5435/PrestaBanco"
+        DB_NAME = "PrestaBanco"
+        DB_USERNAME = "postgres"
+        DB_PASSWORD = "123admin"
+        PDADMIN_USER = "admin@usach.cl"
+        PDADMIN_PASSWORD = "123admin"
+    }
+    stages {
+        stage('Checkout deployment repo') {
+            steps {
+                dir('deployment') {
+                    git branch: 'main', url: 'https://github.com/ByronCaices/devsecops-pep1-deployment.git'
+                }
             }
         }
-		
-        stage('Push image to Docker Hub'){
-            steps{
-                script{
-                   withDockerRegistry(credentialsId:'docker-credentials'){
-					bat "docker build -t saki2002/react-image ."
-					bat "docker push saki2002/react-image"
-				   }
+        stage('Checkout frontend repo') {
+            steps {
+                dir('deployment/devsecops-prestabanco-frontend') {
+                    git branch: 'main', url: 'https://github.com/ByronCaices/devsecops-prestabanco-frontend.git'
                 }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                // Usamos el mismo project name "prestabanco" para que Compose identifique siempre el mismo grupo de contenedores
+                sh 'docker-compose -f deployment/docker-compose.yml -p prestabanco build frontend'
+            }
+        }
+        stage('Deploy Frontend') {
+            steps {
+                // Primero eliminamos (down) cualquier contenedor previo del proyecto "prestabanco"
+                sh 'docker-compose -f deployment/docker-compose.yml -p prestabanco down'
+                // Luego levantamos el contenedor con la nueva imagen
+                sh 'docker-compose -f deployment/docker-compose.yml -p prestabanco up -d --no-deps --force-recreate --remove-orphans frontend'
             }
         }
     }
