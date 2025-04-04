@@ -4,7 +4,7 @@ const Home = () => {
       <div>
         <h1>PrestaBanco</h1>
         <p>
-          Página de PrestaBanco, banco para pedir cccréditos hipotecarios.
+          Página de PrestaBanco, banco para pedir créditos hipotecarios.
         </p>
       </div>
       
